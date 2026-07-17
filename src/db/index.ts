@@ -11,3 +11,6 @@ if (env.NODE_ENV !== "production") globalForDb.client = client;
 
 export const db = drizzle({ client });
 export type Db = typeof db;
+// What repositories accept: the db itself or a transaction handle, so services
+// can compose several repo calls into one atomic transaction.
+export type DbOrTx = Db | Parameters<Parameters<Db["transaction"]>[0]>[0];
